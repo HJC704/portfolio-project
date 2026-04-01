@@ -111,4 +111,29 @@ public interface TensorKernel extends Standard<Tensor> {
      */
     void reshape(int rows, int cols);
 
+    /**
+     * Resets this tensor to a {@code rows}-by-{@code cols} all-zero tensor,
+     * discarding all previous content and shape.
+     *
+     * <p>
+     * Unlike {@link #reshape}, which preserves element data and requires the
+     * total element count to remain the same, {@code setShape} is a destructive
+     * resize: the old values are lost and the tensor is re-initialized to
+     * all-zeros in the new shape. This is the sized analogue of
+     * {@code Standard.clear()}.
+     * </p>
+     *
+     * @param rows
+     *            the new number of rows
+     * @param cols
+     *            the new number of columns
+     * @replaces this
+     * @requires
+     *  rows > 0 and cols > 0
+     * @ensures
+     *  this.shape()[0] = rows and this.shape()[1] = cols and
+     *  this.isZero() = true
+     */
+    void setShape(int rows, int cols);
+
 }

@@ -12,6 +12,23 @@ the following form: YYYY.0M.0D.
 - Fixed broken links
 - Disabled AI features globally
 
+## [2026.04.01]
+
+### Added
+
+- Created `TensorSecondary` abstract class implementing all 5 secondary methods
+  of the `Tensor` interface: `add`, `scale`, `sum`, `fill`, `multiply`
+- Implemented `Object` common methods in `TensorSecondary`: `toString`,
+  `equals`, `hashCode`
+
+### Changed
+
+- Added `setShape(int rows, int cols)` to `TensorKernel`: a destructive resize
+  that resets the tensor to a new shape with all zeros, discarding previous
+  content. Required so that `multiply` in `TensorSecondary` can allocate a
+  correctly-sized result tensor via `newInstance()` + `setShape(...)` without
+  accessing the underlying representation.
+
 ## [2026.03.10]
 
 ### Added
