@@ -6,11 +6,56 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## [2026.04.15]
+
+### Added
+
+- Created `Tensor1` kernel implementation extending `TensorSecondary` with flat
+  row-major `double[]` array representation
+- Implemented 6 kernel methods: `get`, `set`, `shape`, `isZero`, `reshape`,
+  `setShape`
+- Implemented 3 Standard methods: `newInstance`, `clear`, `transferFrom`
+- Added no-argument and shape-parameterized (`Tensor1(int, int)`) constructors
+
+
 ## [Unreleased]
 
 - Disabled an aspect of the coderunner extension
 - Fixed broken links
 - Disabled AI features globally
+
+## [2026.04.01]
+
+### Added
+
+- Created `TensorSecondary` abstract class implementing all 5 secondary methods
+  of the `Tensor` interface: `add`, `scale`, `sum`, `fill`, `multiply`
+- Implemented `Object` common methods in `TensorSecondary`: `toString`,
+  `equals`, `hashCode`
+
+### Changed
+
+- Added `setShape(int rows, int cols)` to `TensorKernel`: a destructive resize
+  that resets the tensor to a new shape with all zeros, discarding previous
+  content. Required so that `multiply` in `TensorSecondary` can allocate a
+  correctly-sized result tensor via `newInstance()` + `setShape(...)` without
+  accessing the underlying representation.
+
+## [2026.03.10]
+
+### Added
+
+- Designed `TensorKernel` interface extending `Standard<Tensor>` with 5 kernel
+  methods: `get`, `set`, `shape`, `isZero`, `reshape`
+- Designed `Tensor` enhanced interface extending `TensorKernel` with 5 secondary
+  methods: `add`, `scale`, `sum`, `fill`, `multiply`
+- Added hierarchy diagram to `doc/03-component-interfaces/hierarchy.md`
+
+### Changed
+
+- Reclassified `reshape` from secondary to kernel: no combination of `get`,
+  `set`, `shape`, or `isZero` can alter shape metadata, so it is a structural
+  primitive that belongs in the kernel
 
 ## [2026.02.26]
 
