@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## [2026.04.15]
+
+### Added
+
+- Created `Tensor1` kernel implementation extending `TensorSecondary` with flat
+  row-major `double[]` array representation
+- Implemented 6 kernel methods: `get`, `set`, `shape`, `isZero`, `reshape`,
+  `setShape`
+- Implemented 3 Standard methods: `newInstance`, `clear`, `transferFrom`
+- Added no-argument and shape-parameterized (`Tensor1(int, int)`) constructors
+
+
 ## [Unreleased]
 
 - Disabled an aspect of the coderunner extension
