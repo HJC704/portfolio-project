@@ -2,7 +2,7 @@
 
 - **Name**: Jiacheng Hou
 - **Dot Number**: hou.688
-- **Due Date**: <!-- fill in due date from Carmen -->
+- **Due Date**: See Carmen
 
 ## Assignment Overview
 
@@ -195,7 +195,7 @@ the following form: YYYY.0M.0D.
 
 ### Added
 
-- Designed kernel implementation for <!-- insert name of component here --> component
+- Designed kernel implementation for Tensor component
 
 ### Updated
 

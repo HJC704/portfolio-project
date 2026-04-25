@@ -21,6 +21,10 @@ import components.standard.Standard;
  */
 public interface TensorKernel extends Standard<Tensor> {
 
+    /** Tolerance used when deciding whether a stored double value is zero. */
+    double ZERO_TOLERANCE = 1.0E-10;
+
+
     /**
      * Returns the value of element ({@code row}, {@code col}) in this tensor.
      *
@@ -71,14 +75,16 @@ public interface TensorKernel extends Standard<Tensor> {
     int[] shape();
 
     /**
-     * Reports whether every element of this tensor equals {@code 0.0}.
+     * Reports whether every element of this tensor is close enough to
+     * numerical zero. The tolerance is {@link #ZERO_TOLERANCE}, which avoids
+     * treating small floating-point roundoff as meaningful tensor content.
      *
-     * @return {@code true} if and only if {@code this[i][j] = 0.0} for all
-     *         valid indices {@code i} and {@code j}; {@code false} otherwise
+     * @return {@code true} if and only if every valid element is within
+     *         {@link #ZERO_TOLERANCE} of {@code 0.0}; {@code false} otherwise
      * @ensures
      *  isZero = (for all i, j: 0 <= i < this.shape()[0] and
      *                          0 <= j < this.shape()[1]:
-     *            this[i][j] = 0)
+     *            abs(this[i][j]) <= ZERO_TOLERANCE)
      */
     boolean isZero();
 
@@ -91,7 +97,8 @@ public interface TensorKernel extends Standard<Tensor> {
      * at flat row-major index {@code k} after the call. Concretely, for each
      * index {@code k} with {@code 0 <= k < rows * cols}:
      * <pre>
-     *   this[k / cols][k % cols]  =  #this[k / #this.shape()[1]][k % #this.shape()[1]]
+     *   this[k / cols][k % cols] =
+     *     #this[k / #this.shape()[1]][k % #this.shape()[1]]
      * </pre>
      * </p>
      *
@@ -102,7 +109,8 @@ public interface TensorKernel extends Standard<Tensor> {
      * @updates this
      * @requires
      *  rows > 0 and cols > 0 and
-     *  rows * cols = #this.shape()[0] * #this.shape()[1]
+     *  rows * cols = #this.shape()[0] * #this.shape()[1] and
+     *  rows * cols fits in a Java int
      * @ensures
      *  this.shape()[0] = rows and this.shape()[1] = cols and
      *  for all k: 0 <= k < rows * cols:
@@ -129,7 +137,7 @@ public interface TensorKernel extends Standard<Tensor> {
      *            the new number of columns
      * @replaces this
      * @requires
-     *  rows > 0 and cols > 0
+     *  rows > 0 and cols > 0 and rows * cols fits in a Java int
      * @ensures
      *  this.shape()[0] = rows and this.shape()[1] = cols and
      *  this.isZero() = true

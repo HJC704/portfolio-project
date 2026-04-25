@@ -130,7 +130,7 @@ hierarchy diagram using whatever tools you would like. Then, include a picture
 of it in this folder. You may also embed it just below using markdown syntax
 (i.e., `![ALT TEXT](path/to/file)`).
 
-![Tensor Hierarchy Diagram](hierarchy.md)
+![Tensor Hierarchy Diagram](hierarchy.jpg)
 
 To start making your interfaces, make a branch off of main in your new repo
 called something like `interfaces`. There are many ways to do this, but my
@@ -190,7 +190,7 @@ the following form: YYYY.0M.0D.
 
 ### Added
 
-- Designed kernel and enhanced interfaces for <!-- insert name of component here --> component
+- Designed kernel and enhanced interfaces for Tensor component
 
 ### Updated
 

@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## [Unreleased]
+
+## [2026.04.24]
+
+### Added
+
+- Added `Tensor1Test`, a JUnit test suite covering constructors, Standard
+  methods, and all kernel methods for the `Tensor1` implementation
+- Added `TensorTest`, a JUnit test suite covering all secondary methods and
+  common `Object` methods implemented in `TensorSecondary`
+- Added `TensorNeuralNetworkDemo`, a use case showing tensor multiplication,
+  bias addition, and scaling for a tiny linear layer
+- Added `TensorSensorGridDemo`, a use case showing calibration, aggregation,
+  unit conversion, and reshaping for a 2D sensor grid
+- Completed the Part 6 reflection in
+  `doc/06-component-finishing-touches/06-component-finishing-touches.md`
+
+### Changed
+
+- Updated `TensorKernel.isZero` contract and `Tensor1.isZero` implementation to
+  treat tiny floating-point roundoff as zero using `ZERO_TOLERANCE`
+- Added dimension-size checking in `Tensor1` so representation array lengths are
+  computed safely before allocation or reshape checks
+- Updated the root `README.md` and folder README files from template
+  instructions to component-focused documentation for users and reviewers
+- Fixed the Part 3 hierarchy image filename/link and capitalized `PyTorch` in
+  the Part 2 writeup
+- Restored the VSCode setting that disables AI features in this workspace
+
+### Removed
+
+- Removed stale compiled `.class` files and replaced the old standalone
+  proof-of-concept source with final-component examples
+
 ## [2026.04.15]
 
 ### Added
@@ -16,13 +50,6 @@ the following form: YYYY.0M.0D.
   `setShape`
 - Implemented 3 Standard methods: `newInstance`, `clear`, `transferFrom`
 - Added no-argument and shape-parameterized (`Tensor1(int, int)`) constructors
-
-
-## [Unreleased]
-
-- Disabled an aspect of the coderunner extension
-- Fixed broken links
-- Disabled AI features globally
 
 ## [2026.04.01]
 
@@ -49,7 +76,7 @@ the following form: YYYY.0M.0D.
   methods: `get`, `set`, `shape`, `isZero`, `reshape`
 - Designed `Tensor` enhanced interface extending `TensorKernel` with 5 secondary
   methods: `add`, `scale`, `sum`, `fill`, `multiply`
-- Added hierarchy diagram to `doc/03-component-interfaces/hierarchy.md`
+- Added hierarchy diagram to `doc/03-component-interfaces/hierarchy.jpg`
 
 ### Changed
 

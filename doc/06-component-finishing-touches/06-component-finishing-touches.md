@@ -1,8 +1,8 @@
 # Portfolio Part 6: Finishing Touches
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) and delete this comment -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) and delete this comment -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) and delete this comment -->
+- **Name**: Jiacheng Hou
+- **Dot Number**: hou.688
+- **Due Date**: Apr 24
 
 ## Assignment Overview
 
@@ -50,12 +50,11 @@ course, but just knowing about them could set you up for long term success.
 
 ## Assignment Checklist
 
-<!-- TODO: browse the checklist then delete this comment -->
-
 To be sure you have completed everything on this assignment, we have littered
-this document with TODO comments. You can browse all of them in VSCode by
-opening the TODOs window from the sidebar. The icon looks like a tree and will
-likely have a large number next to it indicating the number of TODOS. You'll
+this document with completion comments. You can browse all of them in VSCode by
+opening the task list from the sidebar. The icon looks like a tree and will
+likely have a large number next to it indicating the number of remaining
+tasks. You will
 chip away at that number over the course of the semester. However, if you'd
 like to remove this number, you can disable it by removing the following
 line from the `settings.json` file:
@@ -141,8 +140,6 @@ to see them. If you don't like this workflow, you may try following the
 rebase strategies described [here](https://stackoverflow.com/questions/35790561/working-while-waiting-for-pending-pr)
 and [here](https://stackoverflow.com/questions/18021888/continue-working-on-a-git-branch-after-making-a-pull-request).
 
-<!-- TODO: make a new branch from main then delete this comment -->
-
 ## Assignment Tasks
 
 Your primary task for this assignment is to polish up your code and get it
@@ -191,6 +188,12 @@ public void testGetXOne() {
 At least that way, you know the number is unchanged (i.e., `isZero()` properly
 restored `n`).
 
+For Tensor, I added `test/components/tensor/Tensor1Test.java` to cover the
+constructors, Standard methods, and kernel methods. I also added
+`test/components/tensor/TensorTest.java` to cover the secondary methods and
+common `Object` methods implemented by `TensorSecondary`. Together, these tests
+exercise every public component method through the public API.
+
 ### Use Cases
 
 Another requirement to finish the project is to provide a couple of use cases
@@ -215,6 +218,12 @@ public class WholeNumber {
     }
 }
 ```
+
+For Tensor, I added two complete examples under
+`src/components/tensor/examples/`. `TensorNeuralNetworkDemo` shows a tiny
+linear layer using matrix multiplication, bias addition, and scaling.
+`TensorSensorGridDemo` shows a 2D sensor grid workflow using calibration,
+aggregation, unit conversion, and reshape for logging.
 
 ### Polish
 
@@ -290,6 +299,12 @@ just generally not taking shortcuts. Ultimately, you should be incorporating
 the feedback you've received throughout this process into your final product.
 **Have some pride in your work!**
 
+For final polish, I updated the root README so a new reader can understand the
+component layout, tests, and examples without opening every assignment file. I
+also updated the changelog, removed stale compiled output, fixed the Part 3
+hierarchy image link, and applied human review feedback around `reshape`
+naming/preconditions and tolerant floating-point zero checks.
+
 ## Post-Assignment Tasks
 
 The following sections detail everything that you should do once you've
@@ -307,18 +322,18 @@ Take some time to fill them out honestly.
 > complete the portfolio project, how much better (or worse) do you think you
 > understand software development and why?
 
-<!-- TODO: discuss -->
+Completing the portfolio project helped me understand software development as more than memorizing the structure of OSU Components API in the class. The project forced me to move through several stages that is similar to a real engineering workflow: initial design, proof of concept, interface design, layered implementation, testing, documentation, and code review. Especially when I try to read and understand the codebase with bad documentations and bad behavior form academia in AI research, I understand and appreciate why production code needs contracts, invariants, and tests. In the Tensor component, small design choices like whether `reshape` should be kernel or secondary had consequences for the whole API, so the process felt closer to real software design than a one-shot programming exercise or academic code release.
 
 > Also, did the portfolio project surface any gaps in your own knowledge of
 > software development. If so, what are those gaps and how did you address them?
 
-<!-- TODO: discuss -->
+The project surfaced gaps in my understanding of API design, especially around how to separate a client-facing abstraction from a concrete representation. Early in the project, it was easy to think about tensors only as a `double[]` with row and column metadata. As the component evolved, I had to think more carefully about which operations truly needed representation access and which could be layered over the kernel. I addressed that gap by revising the contracts, adding `setShape` as a kernel operation for destructive resizing, and writing tests that verify behavior through the public component API rather than through the representation.
 
 > Finally, as a part of completing the portfolio project, to what extent has
 > your perspective of software development changed, if at all? In other words,
 > is software development something you still enjoy? If not, why not?
 
-<!-- TODO: discuss -->
+I will say my perspective changed entirely. In the past, when I saw the strong coding abilities of AI tools like ChatGPT and Claude Code, I felt that software development was not important anymore and would be replaced by coding agents soon. However, when I implemented some of my ideas about tensor in this project, I realized that good development is an iterative process rather than a single implementation pass like vibe-coding. In addition, ideas come from something, not nothing: I stared with simple ideas: construct a two dimensional tensor with java, and then iterate very fast after implementing some of the methods. Most of the ideas come from implementations and code review, which should not be done by hallucinating AIs. I especially enjoyed developing software components to a topic I care about, numerical computing. At the same time, the project made me more aware that clean software takes patience: contracts, tests, and examples all matter if other people are expected to use the code, which I am deeply inspired by Professor Grifski when he showed how he document his code: 6 - 7 lines of comments for a single line of code.
 
 > One of the challenges of completing the portfolio project is picking up a lot
 > of skills on your own. Some of these skills are, of course, software skills.
@@ -326,29 +341,31 @@ Take some time to fill them out honestly.
 > this process. Therefore, the first question is what skills did you pick up
 > through this process?
 
-<!-- TODO: discuss -->
+I will talk about software skills first. I learned how to make contract-focused API design, layered component implementation, representation invariants, and JUnit test planning without a reference implementation. I also practiced using GitHub pull requests as a communication tool, reading code review feedback critically, and polishing a repository for an outside reader. Beyond coding, I improved my ability to explain design tradeoffs in writing and to connect a technical project to my longer-term interests in machine learning. I also revisit some of the ideas in linear algebra like matrix multiplications when I implement tensor multiplication.
 
 > The follow-up question is: could you rephrase these skills you picked up
 > as bullet points that you could put on a resume? Try it below.
 
-<!-- TODO: discuss -->
+- Designed and implemented an Java Tensor component with kernel and secondary interfaces, an abstract secondary layer, and a concrete row-major array implementation.
+- Wrote JUnit tests covering Standard, kernel, secondary, and common Object methods for a mutable numerical component.
+- Developed example Tensor applications for neural-network inference and 2D sensor-grid processing.
+- Documented API contracts, representation invariants, correspondence, changelog entries, and project reflection for a public portfolio repository.
+- Applied code review feedback to improve naming, preconditions, floating-point handling, and overall repository polish.
 
 > Next, how has working on this project affected your career trajectory?
 > In other words, do you now hate the topic you picked? Or, are you even more
 > interested in it? Both outcomes are valuable to your personal development.
 
-<!-- TODO: discuss -->
+Working on Tensor made me more interested in numerical software rather than get tired of it. It connected directly to the kind of machine-learning and computer-vision work I want to do, but it also showed me that even a small numerical abstraction needs careful design. On one hand, I am shocked by how people design such a strong component `tensor` in Pytorch. On the other hand, I am now more interested in learning how larger libraries manage issues like shape metadata, numerical tolerances, memory layout, and testing. This project made the connection between low-level software engineering habits and research-oriented engineering feel much more concrete.
 
 > Finally, consider the skills you've picked up and your current career
 > trajectory. What are some things you could do to continue on your
 > career trajectory? Also, who are some mentors you could contact to help
 > you stay on your path?
 
-<!-- TODO: discuss -->
+To continue on the trajectory of machine learning and computer vision, I can extend this component with operations such as transpose, element-wise multiplication, slicing, or additional tensor implementations, while preserving the same interface discipline. I can also keep building projects that combine numerical computing with careful testing and documentation. Moreover, I can also investigate how some of the excellent numerical software like Pytorch is developed and documented. I can connect more closely to Professor Wei-Lun Chao (https://sites.google.com/view/wei-lun-harry-chao/home) for computer vision research opportunities and of course, Professor Jeremy Grifski when I need help in software development.
 
 ### Changelog
-
-<!-- TODO: update CHANGELOG then delete this comment -->
 
 At the end of every assignment, you should update the
 [CHANGELOG.md](../../CHANGELOG.md) file found in the root of the project folder.
@@ -367,8 +384,8 @@ the following form: YYYY.0M.0D.
 
 ### Added
 
-- Designed test suite for <!-- insert name of component here --> component
-- Designed two different use cases for <!-- insert name of component here --> component
+- Designed test suite for Tensor component
+- Designed two different use cases for Tensor component
 
 ### Updated
 
@@ -384,10 +401,8 @@ request merge (or at least tag your commits). This is not required.
 
 ### Submission
 
-<!-- TODO: read the submission instructions then delete this comment -->
-
 Assuming that your project is in a GitHub repo somewhere and your changes are on
-a proof-of-concept branch, then what we'll want you to do is create a pull
+a finishing-touches branch, then what we'll want you to do is create a pull
 request of all your changes. Pull requests are pretty easy to make if you're
 using GitHub Desktop. Just click the `Branch` tab and select
 `Create pull request`. This should pull up your browser with the pull request
@@ -435,7 +450,5 @@ PDF to read this rubric as a table).
 If you'd like to give feedback for this assignment (or any assignment, really),
 make use of [this survey][survey]. Your feedback helps make assignments
 better for future students.
-
-<!-- TODO: follow the link to share your feedback then delete this comment -->
 
 [survey]: https://forms.gle/dumXHo6A4Enucdkq9

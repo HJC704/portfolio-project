@@ -8,6 +8,7 @@ package components.tensor;
  *  $this.data != null and
  *  $this.rows > 0 and
  *  $this.cols > 0 and
+ *  $this.rows * $this.cols fits in a Java int and
  *  $this.data.length = $this.rows * $this.cols
  *
  * @correspondence
@@ -28,6 +29,28 @@ public class Tensor1 extends TensorSecondary {
 
     /** Number of columns; always positive. */
     private int cols;
+
+    /**
+     * Computes a legal representation array length for the given dimensions.
+     *
+     * @param rows
+     *            the requested number of rows
+     * @param cols
+     *            the requested number of columns
+     * @return {@code rows * cols}, as an {@code int}
+     * @requires
+     *  rows > 0 and cols > 0 and rows * cols fits in a Java int
+     * @ensures
+     *  checkedElementCount = rows * cols
+     */
+    private static int checkedElementCount(int rows, int cols) {
+        assert rows > 0 && cols > 0
+                : "Violation of: rows > 0 and cols > 0";
+        long size = (long) rows * (long) cols;
+        assert size <= Integer.MAX_VALUE
+                : "Violation of: rows * cols fits in a Java int";
+        return (int) size;
+    }
 
     /**
      * Creator of initial representation. Sets {@code this} to a 1x1 all-zero
@@ -60,10 +83,10 @@ public class Tensor1 extends TensorSecondary {
      *            the number of columns
      */
     public Tensor1(int rows, int cols) {
-        assert rows > 0 && cols > 0 : "Violation of: rows > 0 and cols > 0";
+        int elementCount = checkedElementCount(rows, cols);
         this.rows = rows;
         this.cols = cols;
-        this.data = new double[rows * cols];
+        this.data = new double[elementCount];
     }
 
     /*
@@ -129,17 +152,17 @@ public class Tensor1 extends TensorSecondary {
     public final boolean isZero() {
         boolean allZero = true;
         for (int k = 0; k < this.data.length && allZero; k++) {
-            allZero = this.data[k] == 0.0;
+            allZero = Math.abs(this.data[k]) <= ZERO_TOLERANCE;
         }
         return allZero;
     }
 
     @Override
     public final void reshape(int rows, int cols) {
-        assert rows > 0 && cols > 0
-                : "Violation of: rows > 0 and cols > 0";
-        assert rows * cols == this.rows * this.cols
-                : "Violation of: rows * cols = #this.shape()[0] * #this.shape()[1]";
+        int elementCount = checkedElementCount(rows, cols);
+        assert elementCount == this.data.length
+                : "Violation of: rows * cols = "
+                        + "#this.shape()[0] * #this.shape()[1]";
         this.rows = rows;
         this.cols = cols;
         // data array is unchanged: row-major flat indices are preserved
@@ -147,11 +170,10 @@ public class Tensor1 extends TensorSecondary {
 
     @Override
     public final void setShape(int rows, int cols) {
-        assert rows > 0 && cols > 0
-                : "Violation of: rows > 0 and cols > 0";
+        int elementCount = checkedElementCount(rows, cols);
         this.rows = rows;
         this.cols = cols;
-        this.data = new double[rows * cols]; // fresh array, all zeros
+        this.data = new double[elementCount]; // fresh array, all zeros
     }
 
 }
