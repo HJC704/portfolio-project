@@ -2,7 +2,7 @@
 
 - **Name**: Jiacheng Hou
 - **Dot Number**: hou.688
-- **Due Date**: <!-- fill in due date from Carmen -->
+- **Due Date**:
 
 ## Assignment Overview
 
@@ -108,7 +108,7 @@ Below is further rationale/explanation for the rubric items above:
 
 I chose the Tensor component to move forward with. My primary reason is
 personal expertise: my background is in machine learning and computer vision,
-and tensors are the foundational data structure in every major ML framework such as pytorch.
+and tensors are the foundational data structure in every major ML framework such as PyTorch.
 Because I understand the problem domain deeply,
 I can design and explain the component clearly without spending extra time
 learning the subject matter itself.
@@ -183,7 +183,7 @@ the following form: YYYY.0M.0D.
 
 ### Added
 
-- Designed a proof of concept for <!-- insert name of component here --> component
+- Designed a proof of concept for Tensor component
 
 ### Updated
 

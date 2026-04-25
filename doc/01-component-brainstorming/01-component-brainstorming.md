@@ -365,9 +365,9 @@ the following form: YYYY.0M.0D.
 
 ### Added
 
-- Designed a <!-- insert name of component 1 here --> component
-- Designed a <!-- insert name of component 2 here --> component
-- Designed a <!-- insert name of component 3 here --> component
+- Designed a Tensor component
+- Designed a Vector component
+- Designed a ComplexNumber component
 ```
 
 Here `YYYY.MM.DD` would be the date of your submission, such as 2024.04.21.

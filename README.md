@@ -1,90 +1,88 @@
-# Portfolio Project
+# Tensor Component
 
-The purpose of this repo is to provide a framework for creating your own
-component in the software sequence discipline. If you were unsure whether
-or not to make your own, consider the following testimonial:
+This repository contains an `Tensor` component for my CSE 2231 portfolio project. The component models a mutable
+2-dimensional tensor of `double` values stored conceptually as a rows-by-columns
+matrix.
 
-> I really enjoyed the portfolio project! It gave me a stronger understanding
-> of the OSU software discipline while also giving me the flexibility to
-> design something that reflected my interests. This made the experience
-> rewarding and enjoyable as I created a product I was proud of!
+The design follows the software sequence discipline:
 
-## Recommended Steps to Get Started
+- `TensorKernel` defines the kernel operations and extends `Standard<Tensor>`.
+- `Tensor` extends the kernel interface with secondary operations.
+- `TensorSecondary` implements secondary and common methods strictly through the
+  public kernel/Standard interface.
+- `Tensor1` is the concrete kernel implementation backed by a flat row-major
+  `double[]` representation.
 
-When starting your portfolio project, the following steps should make your life
-a bit easier.
+## Features
 
-### Step 1: Create a Repo From This Template
+The final component supports the following behavior:
 
-<!-- TODO: use GitHub to create a repo from this template -->
+- Standard operations: `newInstance`, `clear`, and `transferFrom`
+- Kernel operations: `get`, `set`, `shape`, `isZero`, `reshape`, and `setShape`
+- Secondary operations: `add`, `scale`, `sum`, `fill`, and `multiply`
+- Common methods: `toString`, `equals`, and `hashCode`
 
-Assuming you're reading this README from GitHub, you can make use of this
-repo by clicking the `Use this template` button in the top-right corner of
-this page. If you can't find the button, [this link][use-this-template] 
-should work as well. Personally, I would recommend using the 
-`Create a new repository` option, which will allow you to name the 
-repository after your component. Given that you will be submitting pull 
-requests to me through Carmen, you'll want to make sure your repository 
-is public. Then, you can click `Create repository`. After that, you can 
-go through all the usual steps of cloning a repository on your system to 
-get to work. I use GitHub Desktop to clone projects, and it has a nice 
-feature of letting you open a repo directly in VSCode from the 
-`Repository` menu.
+`isZero` uses `TensorKernel.ZERO_TOLERANCE` to avoid treating tiny floating-point
+roundoff as meaningful tensor content.
 
-### Step 2: Install Recommended Plugins
+## Project Layout
 
-<!-- TODO: install recommended plugins and delete this comment -->
+```text
+src/components/tensor/
+    Tensor.java
+    Tensor1.java
+    TensorKernel.java
+    TensorSecondary.java
 
-When you open VSCode with this project, you should get a notification in the
-bottom right corner that there are some recommended extensions to install.
-Click install all. If you ignored this message or it never came up, feel free
-to press CTRL+SHIFT+P and type "Show Recommended Extensions". Install all of the
-extensions listed.
+src/components/tensor/examples/
+    TensorNeuralNetworkDemo.java
+    TensorSensorGridDemo.java
 
-### Step 3: Install the Latest JDK
+test/components/tensor/
+    Tensor1Test.java
+    TensorTest.java
 
-<!-- TODO: install latest JDK and delete this comment -->
+doc/
+    01-component-brainstorming/
+    02-component-proof-of-concept/
+    03-component-interfaces/
+    04-component-abstract-class/
+    05-component-kernel-implementation/
+    06-component-finishing-touches/
+```
 
-If you do not have an available JDK on your system, you may be prompted to
-install one by VSCode. The default seems to be Red Hat's OpenJDK, which seems to
-require you to register for an account or to install on the command line.
-Regardless, there is no mac support. As a result, I would just recommend
-installing the latest JDK [directly from Oracle's site][jdk-downloads].
+## Example Use Cases
 
-### Step 4: Add Key Libraries to Project
+Two complete examples are included in `src/components/tensor/examples`:
 
-<!-- TODO: add key libraries to project and delete this comment -->
+1. `TensorNeuralNetworkDemo` uses tensor multiplication, addition, and scaling to
+   simulate a tiny linear layer: `input * weights + bias`.
+2. `TensorSensorGridDemo` uses tensors to represent a calibrated 2D temperature
+   grid, compute an average, convert Celsius readings to Fahrenheit, and reshape
+   the grid into a flat log record.
 
-As you are probably all aware at this point, you need the components jar to get
-anything running. My advice is to [download it from here][components-jar]. Then,
-drop it into the `lib` folder in the project. Git automatically ignores anything
-you put here by default, so don't worry about committing it to version control.
+## Tests
 
-Similarly, you will need the testing APIs (e.g., JUnit). Perhaps the easiest way
-to include them in your project is to click the beaker symbol in the left
-sidebar; it's right below the extensions button which looks like four squares.
-If you do not see this button, try creating a Java file in `src`. From there, 
-you can click "Enable Java Tests" and then click "JUnit" from the
-dropdown. That's it! You should now see the two JUnit libraries in the lib
-folder.
+The test suite is split according to the Part 6 requirement:
 
-**Note**: if you're using VSCode for class projects, you might be wondering
-why you never had to do this. In general, it's bad practice to commit binaries
-to version control. However, we have no way of managing dependencies with the
-custom `components.jar`, so I included them directly in the template. I did not
-include them here, so you could see how it might be done from scratch. If at any
-point you're struggling with Step 3, just copy the lib folder from the monorepo
-template.
+- `Tensor1Test` covers the concrete implementation's constructors, Standard
+  methods, and kernel methods.
+- `TensorTest` covers the secondary methods and common `Object` methods through
+  the public `Tensor` interface.
 
-## Next Steps
+To run the tests in VSCode, add the required course libraries to `lib/`:
 
-<!-- TODO: navigate to part 1 of the portfolio project and delete this comment -->
+```text
+lib/components.jar
+lib/junit-4.13.2.jar
+lib/hamcrest-core-1.3.jar
+```
 
-Now that you have everything setup, you can begin crafting your component. There
-will be deadlines for each step in Carmen, but you're free to complete each step
-as early as you'd like. To start, you'll want to visit the [doc](doc/) directory
-for each assignment file.
+Then enable assertions with `-ea`; the provided VSCode settings already include
+that VM argument.
 
-[components-jar]: https://cse22x1.engineering.osu.edu/common/components.jar
-[jdk-downloads]: https://www.oracle.com/java/technologies/downloads/
-[use-this-template]: https://github.com/new?template_name=portfolio-project&template_owner=jrg94
+## Documentation
+
+The `doc/` directory contains the completed portfolio writeups for Parts 1-6.
+Part 6 includes the final reflection, changelog instructions, and submission
+workflow notes.
