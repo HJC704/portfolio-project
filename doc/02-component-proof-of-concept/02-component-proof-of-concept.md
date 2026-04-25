@@ -2,7 +2,7 @@
 
 - **Name**: Jiacheng Hou
 - **Dot Number**: hou.688
-- **Due Date**: See Carmen
+- **Due Date**:
 
 ## Assignment Overview
 

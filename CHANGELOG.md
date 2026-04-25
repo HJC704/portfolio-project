@@ -31,14 +31,8 @@ the following form: YYYY.0M.0D.
   computed safely before allocation or reshape checks
 - Updated the root `README.md` and folder README files from template
   instructions to component-focused documentation for users and reviewers
-- Fixed the Part 3 hierarchy image filename/link and capitalized `PyTorch` in
-  the Part 2 writeup
-- Restored the VSCode setting that disables AI features in this workspace
 
-### Removed
 
-- Removed stale compiled `.class` files and replaced the old standalone
-  proof-of-concept source with final-component examples
 
 ## [2026.04.15]
 
